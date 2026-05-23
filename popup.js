@@ -151,6 +151,36 @@ document.getElementById('resetBtn').addEventListener('click', async () => {
   renderUI();
 });
 
+document.getElementById('exportBtn').addEventListener('click', async () => {
+  const state = await fetchState();
+  const now = Date.now();
+  const isEffectivelyActive = state.activeDomain && (!state.isIdle || state.isActiveTabAudible);
+  if (isEffectivelyActive) {
+    const activeElapsed = Math.floor((now - state.lastTimestamp) / 1000);
+    state.totals[state.activeDomain] = (state.totals[state.activeDomain] || 0) + activeElapsed;
+  }
+  
+  let report = `[ SYS.BROWSETIME ] SESSION LOG\n`;
+  report += `--------------------------------\n`;
+  
+  const sortedDomains = Object.keys(state.totals).sort((a, b) => state.totals[b] - state.totals[a]);
+  let totalSessionSeconds = 0;
+  
+  for (const domain of sortedDomains) {
+    report += `${formatTime(state.totals[domain]).padEnd(12)} | ${domain}\n`;
+    totalSessionSeconds += state.totals[domain];
+  }
+  
+  report += `--------------------------------\n`;
+  report += `TOTAL ACTIVE : ${formatTime(totalSessionSeconds)}\n`;
+  
+  await navigator.clipboard.writeText(report);
+  
+  const btn = document.getElementById('exportBtn');
+  btn.innerText = 'Copied!';
+  setTimeout(() => { btn.innerText = 'Export Logs'; }, 2000);
+});
+
 // Initial render
 renderUI();
 

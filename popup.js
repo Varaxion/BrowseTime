@@ -25,9 +25,11 @@ function formatTime(seconds) {
   const m = Math.floor((seconds % 3600) / 60);
   const s = seconds % 60;
   
-  if (h > 0) return `${h}h ${m}m ${s}s`;
-  if (m > 0) return `${m}m ${s}s`;
-  return `${s}s`;
+  const pad = (num) => num.toString().padStart(2, '0');
+  
+  if (h > 0) return `${pad(h)}h ${pad(m)}m ${pad(s)}s`;
+  if (m > 0) return `${pad(m)}m ${pad(s)}s`;
+  return `${pad(s)}s`;
 }
 
 async function renderUI() {

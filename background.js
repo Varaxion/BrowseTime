@@ -35,7 +35,9 @@ function getDomain(url) {
   if (!url || (!url.startsWith('http:') && !url.startsWith('https:'))) return null;
   try {
     const urlObj = new URL(url);
-    return urlObj.hostname.replace(/^www\./, '');
+    let hostname = urlObj.hostname.toLowerCase();
+    // Strip common subdomains for cleaner analytics
+    return hostname.replace(/^(www\.|m\.|en\.)/, '');
   } catch (e) {
     return null;
   }

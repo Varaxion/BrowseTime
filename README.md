@@ -68,7 +68,7 @@ The BrowseTime engine runs purely in the background via a sophisticated, race-co
   <br /><br />
   <code><b>[ SYS.BROWSETIME ]</b></code>
   <br />
-  <h3>✦ Engineered by <a href="https://github.com/varaxion">Varaxion</a> ✦</h3>
+  <h3>✦ Engineered by <a href="https://github.com/Varaxion">Varaxion</a> ✦</h3>
   <br />
   <img src="https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/aqua.png" width="400" alt="cyan glowing line separator" />
 </div>
